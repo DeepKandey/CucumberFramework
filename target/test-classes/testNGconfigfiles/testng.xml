@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Cucumber Framework suite" parallel="tests"
+	verbose="2" thread-count="1" configfailurepolicy="skip">  <!-- continue if precondition i.e *Before fails -->
+
+	<test name="Cucumber Test">
+		<classes>
+			<class name="com.appname.qa.testrunner.TestNGCucumberRunner" />
+		</classes>
+	</test> <!-- Default test -->
+</suite> <!-- Default suite -->

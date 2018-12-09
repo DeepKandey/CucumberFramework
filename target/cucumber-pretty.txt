@@ -1,0 +1,8 @@
+Feature: Login Feature
+  Verify if user is able to Login in to the site
+
+  Scenario: Login as a authenticated user # Login.feature:4
+    Given user is on homepage             # LoginStepDefinition.user_is_on_homepage()
+    When user navigates to Login Page     # LoginStepDefinition.user_navigates_to_Login_Page()
+    And user enters username and Password # LoginStepDefinition.user_enters_username_and_Password()
+    Then success message is displayed     # LoginStepDefinition.success_message_is_displayed()
