@@ -1,47 +1,43 @@
 package com.appname.qa.step.definitions;
 
-import java.util.concurrent.TimeUnit;
-
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.Assert;
+
+import com.appname.qa.base.Base;
+import com.appname.qa.pageobjects.LoginPage;
+import com.appname.qa.util.LoggerUtil;
 
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import io.github.bonigarcia.wdm.WebDriverManager;
 
-public class LoginStepDefinition {
+public class LoginStepDefinition extends Base {
 
-	public WebDriver driver;
+	LoginPage loginPage;
 
 	@Given("^user is on homepage$")
 	public void user_is_on_homepage() throws Throwable {
-		WebDriverManager.firefoxdriver().setup();
-		driver = new FirefoxDriver();
-		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-		driver.get("http://www.facebook.com");
+		initialization();
+		driver.get(prop.getProperty("url"));
 	}
 
 	@When("^user navigates to Login Page$")
 	public void user_navigates_to_Login_Page() throws Throwable {
-		Assert.assertEquals("Log In", driver.findElement(By.xpath("//input[@value='Log In']")).getAttribute("value"));
-	}
-
-	@When("^user enters username and Password$")
-	public void user_enters_username_and_Password() throws Throwable {
-		driver.findElement(By.id("email")).sendKeys("deepak.rai21@yahoo.com");
-		driver.findElement(By.id("pass")).sendKeys("Rehan@91");
-		driver.findElement(By.xpath("//input[@value='Log In']")).click();
+		loginPage = new LoginPage();
+		Assert.assertEquals("Log In", loginPage.getLoginTxt());
 	}
 
 	@Then("^success message is displayed$")
 	public void success_message_is_displayed() throws Throwable {
-		String exp_message = "Deepak";
-		String actual = driver.findElement(By.xpath("//span[@class='_1vp5']")).getText();
-		System.out.println("Logged in as: " + actual);
-		Assert.assertEquals(exp_message, actual);
-		driver.quit();
+		loginPage = new LoginPage();
+		String exp_message = prop.getProperty("username");
+		String actual_message = loginPage.getUserNameTxt();
+		LoggerUtil.logMessage("Logged in as: " + actual_message);
+		Assert.assertEquals(exp_message, actual_message, "Expected Username is not displayed");
+	}
+
+	@When("^user enters \"([^\"]*)\" and \"([^\"]*)\"$")
+	public void user_enters_credentials(String userName, String password) throws Throwable {
+		loginPage = new LoginPage();
+		loginPage.enterUserCredentials(userName, password);
 	}
 }

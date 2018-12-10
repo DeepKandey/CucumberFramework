@@ -26,7 +26,7 @@ public class Base {
 	public Base() {
 		prop = new Properties();
 		File file = new File(
-				System.getProperty("user.dir") + "\\src\\main\\java\\com\\trainline\\qa\\config\\config.properties");
+				System.getProperty("user.dir") + "\\src\\main\\java\\com\\appname\\qa\\config\\config.properties");
 		try {
 			FileInputStream fis = new FileInputStream(file);
 			prop.load(fis);
