@@ -5,6 +5,7 @@ import org.testng.Assert;
 import com.appname.qa.base.Base;
 import com.appname.qa.pageobjects.LoginPage;
 import com.appname.qa.util.LoggerUtil;
+import com.vimalselvam.cucumber.listener.Reporter;
 
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -18,12 +19,14 @@ public class LoginStepDefinition extends Base {
 	public void user_is_on_homepage() throws Throwable {
 		initialization();
 		driver.get(prop.getProperty("url"));
+		Reporter.addScenarioLog("Scenario is to check user Login");
 	}
 
 	@When("^user navigates to Login Page$")
 	public void user_navigates_to_Login_Page() throws Throwable {
 		loginPage = new LoginPage();
 		Assert.assertEquals("Log In", loginPage.getLoginTxt());
+		Reporter.addStepLog("User is navigated to Login Page");
 	}
 
 	@Then("^success message is displayed$")
