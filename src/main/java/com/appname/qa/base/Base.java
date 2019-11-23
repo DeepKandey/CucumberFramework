@@ -7,6 +7,7 @@ import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -38,7 +39,9 @@ public class Base {
 	public static void initialization() {
 		if (driver == null) {
 			WebDriverManager.firefoxdriver().setup();
-			driver = new FirefoxDriver();
+			FirefoxOptions firefoxOptions = new FirefoxOptions();
+			firefoxOptions.addPreference("dom.webnotifications.enabled", false);
+			driver = new FirefoxDriver(firefoxOptions);
 		}
 		eDriver = new EventFiringWebDriver(driver);
 		// Now create object of EventListenerHandler to register it with
